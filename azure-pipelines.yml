@@ -90,3 +90,27 @@ stages:
               appType: 'webAppLinux'
               appName: 'tailspin-space-game-web-dev-14849'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
+
+- stage: 'Staging'
+  displayName: 'Deploy to the staging environment'
+  dependsOn: Dev
+  jobs:
+  - deployment: Deploy
+    pool:
+      vmImage: 'ubuntu-20.04'
+    environment: staging
+    variables:
+    - group: 'Release'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop
+          - task: AzureWebApp@1
+            displayName: 'Azure App Service Deploy: website'
+            inputs:
+              azureSubscription: 'TAFUR PERSONAL Pas-as-you-go(5a0edc1d-3560-4860-8ea0-931de407bd04)'
+              appType: 'webAppLinux'
+              appName: 'tailspin-space-game-web-staging-14849'
+              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
