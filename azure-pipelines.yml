@@ -89,5 +89,5 @@ stages:
             inputs:
               azureSubscription: 'TAFUR PERSONAL Pas-as-you-go(5a0edc1d-3560-4860-8ea0-931de407bd04)'
               appType: 'webAppLinux'
-              appName: '$(WebAppNameDev)'
+              appName: 'tailspin-space-game-web-dev-14849'
               package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
